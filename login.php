@@ -22,14 +22,18 @@
         setcookie('uname', $username, time()+60*60*24*10, '/');
     }
 
-    $sql = "SELECT * FROM Users WHERE username='$username' && password='$password'";
+    $sql = "SELECT username, password FROM Users WHERE username='$username'";
 
     $result = $dbh->query($sql);
 
     if ($result->num_rows ==  1) {
-        session_start();
-        $_SESSION['user']= $username;
-        header("Location: homepage.php");
+        while($row = $result->fetch_assoc()) {
+            if(password_verify($password, $row["password"])){
+                session_start();
+                $_SESSION['user']= $username;
+                header("Location: homepage.php");
+            }
+        }
     }
     else{
         echo 'Error! Please enter a correct username or password';

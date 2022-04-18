@@ -1,17 +1,11 @@
 <?php
 function ConnectDB() {
 	$hostname = '127.0.0.1';
-	$username = '';
-	$password = '';
-	$dbname = '';
+	$username = 'username';
+	$password = 'password';
+	$dbname = 'username';
 
-	try {
-		$dbh = new PDO("mysql:$hostname;dbname=$dbname", 
-                               $username, $password);
-	}
-	catch(PDOException $e) {
-		die ('PDO error in "ConnectDB()": ' . $e->getMessage() );
-	}
+	$dbh = mysqli_connect($hostname, $username, $password, $dbname);
 	
 	return $dbh;
 }

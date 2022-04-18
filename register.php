@@ -19,11 +19,11 @@
     $password = $_POST['password'];
     $email = $_POST['email'];
 
- 
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     if($username != '' && $password != '' && $email != ''){
 
-      $sql = "INSERT INTO Users(username, password, email) VALUES('$username', '$password', '$email')";
+      $sql = "INSERT INTO Users(username, password, email) VALUES('$username', '$hashed_password', '$email')";
       
 
       if ($dbh->query($sql) === TRUE) {
